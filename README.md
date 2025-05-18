@@ -357,3 +357,7 @@ location / {
 > Such activities are **illegal** under international laws.  
 >
 > This project is intended for **educational purposes only**.  
+
+```bash
+docker compose up -d plex
+```

@@ -198,6 +198,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=UTC
+      - VERSION=docker
     volumes:
       - jellyfin-config:/config
       - torrent-downloads:/data
@@ -208,8 +209,24 @@ services:
       - 7359:7359/udp
       - 8920:8920
     restart: unless-stopped
-  
-  
+
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+      - VERSION=docker
+    networks:
+      - mynetwork
+    volumes:
+      - plex-config:/config
+      - torrent-downloads:/data
+    ports:
+      - 32400:32400
+    restart: unless-stopped
+
   # Doc: https://github.com/navilg/cleanmyarr
   # cleanmyarr:
   #   profiles: ["vpn", "no-vpn"]
@@ -251,6 +268,7 @@ volumes:
   jellyseerr-config:
   recommendarr-data:
   # cleanmyarr-config:
+  plex-config:
 
 networks:
   mynetwork:
