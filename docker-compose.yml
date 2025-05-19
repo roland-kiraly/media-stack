@@ -223,6 +223,7 @@ services:
       - PGID=1000
       - TZ=UTC
       - VERSION=docker
+      - NVIDIA_VISIBLE_DEVICES=all
     networks:
       - mynetwork
     volumes:
@@ -231,6 +232,13 @@ services:
     ports:
       - 32400:32400
     restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
 
   # Doc: https://github.com/navilg/cleanmyarr
   # cleanmyarr:
